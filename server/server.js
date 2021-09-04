@@ -9,31 +9,26 @@ const typeDefs = `
     }
 
     type Query{
-        prefixes: [Item]
-        sufixes: [Item]
+        items (type: String): [Item]
     }
 
 `;
 
-const prefixes = [
+const items = [
     {id:1 , type:"prefix",description:"Air"},
     {id:2 , type:"prefix",description:"Jet"},
     {id:3 , type:"prefix",description:"Flight"},
+    {id:4 , type:"sufix",description:"Hub"},
+    {id:5 , type:"sufix",description:"Station"},
+    {id:6 , type:"sufix",description:"Mart"}
 ];
 
-const sufixes = [
-    {id:1 , type:"prefix",description:"Hub"},
-    {id:2 , type:"prefix",description:"Station"},
-    {id:3 , type:"prefix",description:"Mart"},
-];
+
 
 const resolvers = {
     Query:{
-        prefixes(){
-            return prefixes;
-        },
-        sufixes(){
-            return sufixes;
+        items(_,args){
+            return items.filter(item => item.type === args.type);
         }
     }
 };
